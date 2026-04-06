@@ -4,13 +4,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDpJaRNA07MFfwMT3knn-1MZemqsJP6-Js",
-  authDomain: "health-51dbe.firebaseapp.com",
-  projectId: "health-51dbe",
-  storageBucket: "health-51dbe.appspot.com",
-  messagingSenderId: "150851038186",
-  appId: "1:150851038186:web:4415c05149233a9ac9a093",
-  measurementId: "G-NFRXKJL2BB",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 export const app = initializeApp(firebaseConfig);
