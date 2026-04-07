@@ -630,8 +630,8 @@ const Diagnosis = () => {
 
     try {
       const symptomsToSend = Object.values(selectedSymptoms).filter((s) => s);
-      if (symptomsToSend.length === 0) {
-        throw new Error("Please enter at least one symptom");
+      if (symptomsToSend.length < 3) {
+        throw new Error("Please enter at least 3 symptoms before submitting.");
       }
 
       const response = await axios.post("http://localhost:5000/api/predict", {
@@ -841,7 +841,7 @@ const Diagnosis = () => {
                             onClick={handlePredict}
                             disabled={
                               loading ||
-                              !Object.values(selectedSymptoms).some(Boolean)
+                              Object.values(selectedSymptoms).filter(Boolean).length < 3
                             }
                             className="w-100 py-2"
                           >

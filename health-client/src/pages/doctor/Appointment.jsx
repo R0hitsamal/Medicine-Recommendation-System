@@ -64,6 +64,16 @@ const AppointmentPanel = () => {
           });
         });
 
+        appointmentsData.sort((a, b) => {
+          const dateA = a.appointmentRequestDate?.toDate
+            ? a.appointmentRequestDate.toDate()
+            : a.appointmentRequestDate || new Date(0);
+          const dateB = b.appointmentRequestDate?.toDate
+            ? b.appointmentRequestDate.toDate()
+            : b.appointmentRequestDate || new Date(0);
+          return dateB - dateA;
+        });
+
         setAppointments(appointmentsData);
         setLoading(false);
       } catch (error) {

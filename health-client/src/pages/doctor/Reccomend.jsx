@@ -107,6 +107,12 @@ const DrugRecommendationPanel = () => {
           });
         });
 
+        diseasesData.sort((a, b) => {
+          const dateA = a.timestamp?.toDate ? a.timestamp.toDate() : a.timestamp || new Date(0);
+          const dateB = b.timestamp?.toDate ? b.timestamp.toDate() : b.timestamp || new Date(0);
+          return dateB - dateA;
+        });
+
         setDiseases(diseasesData);
         setLoading(false);
       } catch (error) {

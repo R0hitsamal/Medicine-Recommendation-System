@@ -4,6 +4,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from datetime import datetime
+from sklearn.metrics import accuracy_score
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -105,6 +106,36 @@ def predict():
             'disease': predicted_disease,
             'drug': drug,
             'symptoms_used': selected_symptoms,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+@app.route('/api/accuracy', methods=['GET'])
+def get_accuracy():
+    """Return the model's accuracy on test data"""
+    try:
+        # Load test data
+        test_df = pd.read_csv("Testing.csv")
+        
+        # Features are all columns except 'prognosis'
+        X_test = test_df.drop('prognosis', axis=1)
+        y_test = test_df['prognosis']
+        
+        # Make predictions
+        y_pred = model.predict(X_test)
+        
+        # Calculate accuracy
+        accuracy = accuracy_score(y_test, y_pred)
+        
+        return jsonify({
+            'status': 'success',
+            'accuracy': round(accuracy * 100, 2),
+            'total_samples': len(y_test),
             'timestamp': datetime.now().isoformat()
         })
         
